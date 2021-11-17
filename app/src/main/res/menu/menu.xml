@@ -6,32 +6,17 @@
         android:icon="@drawable/ic_search_vector"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom"/>
-    <item
-        android:id="@+id/go_home"
-        android:icon="@drawable/ic_home_vector"
-        android:title="@string/go_to_home_folder"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/go_to_favorite"
         android:icon="@drawable/ic_folder_open_vector"
         android:title="@string/go_to_favorite"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/add_favorite"
-        android:icon="@drawable/ic_star_off_vector"
-        android:title="@string/add_to_favorites"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/remove_favorite"
-        android:icon="@drawable/ic_star_on_vector"
-        android:title="@string/remove_from_favorites"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/toggle_filename"
         android:icon="@drawable/ic_label_vector"
@@ -62,11 +47,11 @@
         android:title="@string/reduce_column_count"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/about"
         android:title="@string/about"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/AdaptorInfo"
+        android:title="@string/adaptor_info_title"
         app:showAsAction="never"/>
 </menu>

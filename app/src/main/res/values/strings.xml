@@ -84,6 +84,9 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
+    <string name="adaptor_info">This APP is a modified version of the original one from https://www.simplemobiletools.com.\n\nIt is modified by Zhang Jun as his
+    lab assignment for NJUCS SoftwareEngineering Course.\nThe modified version is available on https://github.com/jungle-gym-ac/Simple-File-Manager-6.8.7.</string>
+    <string name="adaptor_info_title">Adaptor Info</string>
 
     <!--
         Haven't found some strings? There's more at

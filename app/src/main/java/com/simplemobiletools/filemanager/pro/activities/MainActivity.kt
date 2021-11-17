@@ -32,6 +32,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
+import android.view.View
+import android.widget.Toast
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.items_fragment.*
+
 
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
@@ -55,7 +61,21 @@ class MainActivity : SimpleActivity() {
             isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
             isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         }
-
+        //Modified begin
+        fragment.ButtonHome.setOnClickListener{goHome()}
+        fragment.ButtonAddFavorite.setOnClickListener({
+            addFavorite()
+            toast("Successfully Add \""+fragment.currentPath+"\" to Favorite.")
+            fragment.ButtonAddFavorite.hide()
+            fragment.ButtonRemoveFavorite.show()
+        })
+        fragment.ButtonRemoveFavorite.setOnClickListener({
+            removeFavorite()
+            toast("Successfully Remove \""+fragment.currentPath+"\" from Favorite.")
+            fragment.ButtonRemoveFavorite.hide()
+            fragment.ButtonAddFavorite.show()
+        })
+        //Modified end
         if (savedInstanceState == null) {
             handleAppPasswordProtection {
                 mWasProtectionHandled = it
@@ -87,12 +107,13 @@ class MainActivity : SimpleActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
         menu!!.apply {
-            findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
-            findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
+            //modified begin
+            //findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
+            //findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
 
             findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID
-            findItem(R.id.go_home).isVisible = fragment.currentPath != config.homeFolder
+            //findItem(R.id.go_home).isVisible = fragment.currentPath != config.homeFolder
             findItem(R.id.set_as_home).isVisible = fragment.currentPath != config.homeFolder
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
@@ -100,6 +121,9 @@ class MainActivity : SimpleActivity() {
 
             findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
             findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+
+            //modified end
+
         }
 
         return true
@@ -107,11 +131,12 @@ class MainActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.go_home -> goHome()
+            //modified begin
+            //R.id.go_home -> goHome()
             R.id.go_to_favorite -> goToFavorite()
             R.id.sort -> showSortingDialog()
-            R.id.add_favorite -> addFavorite()
-            R.id.remove_favorite -> removeFavorite()
+            //R.id.add_favorite -> addFavorite()
+            //R.id.remove_favorite -> removeFavorite()
             R.id.toggle_filename -> fragment.toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
@@ -119,9 +144,11 @@ class MainActivity : SimpleActivity() {
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.increase_column_count -> fragment.increaseColumnCount()
             R.id.reduce_column_count -> fragment.reduceColumnCount()
-            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
+            //R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))      //模仿这行，写一个setting悬浮按钮！！是否在fragment中放置该悬浮按钮？ 或者不用该行，而是查查怎么引发另一个activity
             R.id.about -> launchAbout()
+            R.id.AdaptorInfo -> startActivity(Intent(applicationContext, InfoActivity::class.java))             //modified
             else -> return super.onOptionsItemSelected(item)
+            //modified end
         }
         return true
     }
@@ -154,7 +181,7 @@ class MainActivity : SimpleActivity() {
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.search)
+        searchMenuItem = menu.findItem(R.id.search)                //使用Menu的search item
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
@@ -247,6 +274,8 @@ class MainActivity : SimpleActivity() {
         }
 
         (fragment_holder as ItemsFragment).openPath(newPath, forceRefresh)
+
+
     }
 
     private fun goHome() {

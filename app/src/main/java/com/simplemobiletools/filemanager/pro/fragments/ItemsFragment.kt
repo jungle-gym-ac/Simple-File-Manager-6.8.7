@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -17,6 +19,7 @@ import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
+import com.simplemobiletools.filemanager.pro.activities.SettingsActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.CreateNewItemDialog
@@ -28,6 +31,7 @@ import com.simplemobiletools.filemanager.pro.helpers.PATH
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
@@ -66,7 +70,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         super.onViewCreated(view, savedInstanceState)
         mView.apply {
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
-            items_fab.setOnClickListener { createNewItem() }
+            //modified begin
+            ButtonCreateNew.setOnClickListener { createNewItem() }                    //新建文件！！
+            ButtonSetting.setOnClickListener{                       // 设置！
+                    val intent = Intent(context, SettingsActivity::class.java);
+                    startActivity(intent)
+            }
+            //modified end
             breadcrumbs.listener = this@ItemsFragment
         }
     }
@@ -160,6 +170,22 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
             }
         }
+        //Modified begin
+        if(currentPath!=context!!.config.homeFolder) {
+            ButtonHome.show()
+        }
+        else{
+            ButtonHome.hide()
+        }
+        if(context!!.config.favorites.contains(currentPath)){
+            ButtonAddFavorite.hide()
+            ButtonRemoveFavorite.show()
+        }
+        else{
+            ButtonAddFavorite.show()
+            ButtonRemoveFavorite.hide()
+        }
+        //Modified end
     }
 
     private fun addItems(items: ArrayList<ListItem>, forceRefresh: Boolean = false) {
@@ -448,6 +474,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             }
         }
     }
+
+
+
+
 
     private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
 
