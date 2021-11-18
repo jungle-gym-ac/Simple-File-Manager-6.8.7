@@ -132,11 +132,11 @@ class MainActivity : SimpleActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             //modified begin
-            R.id.go_home -> goHome()
+            //R.id.go_home -> goHome()
             R.id.go_to_favorite -> goToFavorite()
             R.id.sort -> showSortingDialog()
-            R.id.add_favorite -> addFavorite()
-            R.id.remove_favorite -> removeFavorite()
+            //R.id.add_favorite -> addFavorite()
+            //R.id.remove_favorite -> removeFavorite()
             R.id.toggle_filename -> fragment.toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
@@ -144,7 +144,7 @@ class MainActivity : SimpleActivity() {
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.increase_column_count -> fragment.increaseColumnCount()
             R.id.reduce_column_count -> fragment.reduceColumnCount()
-            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))      //模仿这行，写一个setting悬浮按钮！！是否在fragment中放置该悬浮按钮？ 或者不用该行，而是查查怎么引发另一个activity
+            //R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))      //模仿这行，写一个setting悬浮按钮！！是否在fragment中放置该悬浮按钮？ 或者不用该行，而是查查怎么引发另一个activity
             R.id.about -> launchAbout()
             R.id.AdaptorInfo -> startActivity(Intent(applicationContext, InfoActivity::class.java))             //modified
             else -> return super.onOptionsItemSelected(item)
