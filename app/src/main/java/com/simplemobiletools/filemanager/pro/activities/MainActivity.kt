@@ -319,6 +319,7 @@ class MainActivity : SimpleActivity() {
     private fun setAsHome() {
         config.homeFolder = fragment.currentPath
         toast(R.string.home_folder_updated)
+        fragment.ButtonHome.hide()
     }
 
     private fun changeViewType() {
