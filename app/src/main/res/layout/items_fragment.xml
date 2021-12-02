@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="230dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_baseline_home_24" />
 
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="152dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="152dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
